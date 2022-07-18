@@ -1,1 +1,3 @@
-grpcio-tools ~= 1.30
+grpcio-tools==1.47.0
+casbin==1.16.9
+grpcio==1.47.0

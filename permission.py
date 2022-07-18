@@ -1,50 +1,31 @@
 import grpc
+import permission_pb2 as permission_pb2
+import permission_pb2_grpc as permission_pb2_grpc
+
+
 from concurrent import futures
-
-
-import permission_pb2
-import permission_pb2_grpc
-
-
-users = {
-    1: {
-        'name': 'John',
-        'policies': [
-            {
-                'action': 'read',
-                'object': 'stock_reports',
-            },
-            {
-                'action': 'write',
-                'object': 'custom_reports',
-            }
-        ]
-    },
-    2: {
-        'name': 'Lucas',
-        'policies': [
-            {
-                'action': 'read',
-                'object': 'custom_reports',
-            }
-        ]
-    },
-}
+from ac.user import User, validate_user
 
 
 class PermissionServicer(permission_pb2_grpc.PermissionServicer):
+    @validate_user
     def GetPolicies(self, request, context):
-        print("GetPolicies Request Made:")
-        print(request)
-
-        user = users.get(request.user_id)
-
-        if user is None:
-            raise grpc.RpcError(grpc.StatusCode.NOT_FOUND, 'User not found')
-
-        policies = [permission_pb2.PolicyReply(**policy) for policy in user['policies']]
-        policies = permission_pb2.PoliciesReply(user_id=request.user_id, policies=policies)
+        policies = User(request.user_id).get_policies()
+        policies = [permission_pb2.GetPolicyReply(object=policy[1], action=policy[2]) for policy in policies]
+        policies = permission_pb2.GetPoliciesReply(user_id=request.user_id, policies=policies)
         return policies
+
+    @validate_user
+    def CreatePolicy(self, request, context):
+        User(request.user_id).add_policy(request.object, request.action)
+        policy = permission_pb2.CreatePolicyReply(user_id=request.user_id, object=request.object, action=request.action)
+        return policy
+
+    @validate_user
+    def CheckPolicy(self, request, context):
+        check_policy = User(request.user_id).has_policy(request.object, request.action)
+        policy = permission_pb2.CheckPolicyReply(status_code=check_policy["access"], message=check_policy["message"])
+        return policy
 
 
 def serve():

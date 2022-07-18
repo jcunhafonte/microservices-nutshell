@@ -1,0 +1,4 @@
+p, 1, stock_reports, read
+p, 1, reports, write
+p, 2, reports, read
+p, cb-admin, *, *
