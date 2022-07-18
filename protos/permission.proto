@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package permission;
+
+// The permission service definition.
+service Permission {
+	rpc GetPolicies (PolicyRequest) returns (PoliciesReply);
+}
+
+// The request message containing the user's id
+message PolicyRequest {
+	int32 user_id = 1;
+}
+
+// The response message containing the policy
+message PolicyReply {
+    string object = 1;
+    string action = 2;
+}
+
+// The response message containing the policies
+message PoliciesReply {
+	int32 user_id = 1;
+	repeated PolicyReply policies = 2;
+}

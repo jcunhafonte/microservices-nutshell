@@ -1,0 +1,9 @@
+version: "3.8"
+services:
+  permission:
+    build: .
+    networks:
+      - microservices
+
+networks:
+  microservices:
