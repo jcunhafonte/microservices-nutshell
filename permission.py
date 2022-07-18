@@ -1,50 +1,33 @@
 import grpc
+import permission_pb2 as permission_pb2
+import permission_pb2_grpc as permission_pb2_grpc
+
+
 from concurrent import futures
-
-
-import permission_pb2
-import permission_pb2_grpc
-
-
-users = {
-    1: {
-        'name': 'John',
-        'policies': [
-            {
-                'action': 'read',
-                'object': 'stock_reports',
-            },
-            {
-                'action': 'write',
-                'object': 'custom_reports',
-            }
-        ]
-    },
-    2: {
-        'name': 'Lucas',
-        'policies': [
-            {
-                'action': 'read',
-                'object': 'custom_reports',
-            }
-        ]
-    },
-}
+from authorization.casbin import Casbin
 
 
 class PermissionServicer(permission_pb2_grpc.PermissionServicer):
     def GetPolicies(self, request, context):
-        print("GetPolicies Request Made:")
-        print(request)
-
-        user = users.get(request.user_id)
-
-        if user is None:
+        if request.user_id not in Casbin.get_users():
             raise grpc.RpcError(grpc.StatusCode.NOT_FOUND, 'User not found')
 
-        policies = [permission_pb2.PolicyReply(**policy) for policy in user['policies']]
-        policies = permission_pb2.PoliciesReply(user_id=request.user_id, policies=policies)
+        policies = Casbin().enforcer.get_filtered_policy(0, str(request.user_id))
+        policies = [permission_pb2.GetPolicyReply(object=policy[1], action=policy[2]) for policy in policies]
+        policies = permission_pb2.GetPoliciesReply(user_id=request.user_id, policies=policies)
         return policies
+
+    def CreatePolicy(self, request, context):
+        if request.user_id not in Casbin.get_users():
+            raise grpc.RpcError(grpc.StatusCode.NOT_FOUND, 'User not found')
+
+        enforcer = Casbin().enforcer
+        enforcer.add_named_policy("p", str(request.user_id), request.object, request.action)
+        enforcer.save_policy()
+
+        policy = permission_pb2.CreatePolicyReply(user_id=request.user_id, object=request.object, action=request.action)
+
+        return policy
 
 
 def serve():

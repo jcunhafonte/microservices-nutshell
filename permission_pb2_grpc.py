@@ -17,8 +17,13 @@ class PermissionStub(object):
         """
         self.GetPolicies = channel.unary_unary(
                 '/permission.Permission/GetPolicies',
-                request_serializer=permission__pb2.PolicyRequest.SerializeToString,
-                response_deserializer=permission__pb2.PoliciesReply.FromString,
+                request_serializer=permission__pb2.GetPolicyRequest.SerializeToString,
+                response_deserializer=permission__pb2.GetPoliciesReply.FromString,
+                )
+        self.CreatePolicy = channel.unary_unary(
+                '/permission.Permission/CreatePolicy',
+                request_serializer=permission__pb2.CreatePolicyRequest.SerializeToString,
+                response_deserializer=permission__pb2.CreatePolicyReply.FromString,
                 )
 
 
@@ -32,13 +37,24 @@ class PermissionServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def CreatePolicy(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_PermissionServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'GetPolicies': grpc.unary_unary_rpc_method_handler(
                     servicer.GetPolicies,
-                    request_deserializer=permission__pb2.PolicyRequest.FromString,
-                    response_serializer=permission__pb2.PoliciesReply.SerializeToString,
+                    request_deserializer=permission__pb2.GetPolicyRequest.FromString,
+                    response_serializer=permission__pb2.GetPoliciesReply.SerializeToString,
+            ),
+            'CreatePolicy': grpc.unary_unary_rpc_method_handler(
+                    servicer.CreatePolicy,
+                    request_deserializer=permission__pb2.CreatePolicyRequest.FromString,
+                    response_serializer=permission__pb2.CreatePolicyReply.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -63,7 +79,24 @@ class Permission(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/permission.Permission/GetPolicies',
-            permission__pb2.PolicyRequest.SerializeToString,
-            permission__pb2.PoliciesReply.FromString,
+            permission__pb2.GetPolicyRequest.SerializeToString,
+            permission__pb2.GetPoliciesReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def CreatePolicy(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/permission.Permission/CreatePolicy',
+            permission__pb2.CreatePolicyRequest.SerializeToString,
+            permission__pb2.CreatePolicyReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

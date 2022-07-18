@@ -1,6 +1,9 @@
-import permission_pb2_grpc
-import permission_pb2
+import permission_pb2_grpc as permission_pb2_grpc
+import permission_pb2 as permission_pb2
 import grpc
+
+
+from utils.input import input_action, input_available_actions, input_object, input_user_id
 
 
 def run():
@@ -8,20 +11,26 @@ def run():
         stub = permission_pb2_grpc.PermissionStub(channel)
 
         while True:
-            user_id = input("Please enter a user_id (or nothing to stop chatting): ")
+            actions = input_available_actions()
 
-            if user_id == "":
-                break
-
-            user_id = int(user_id)
-            policy_request = permission_pb2.PolicyRequest(user_id=user_id)
-
-            try:
-                policies_reply = stub.GetPolicies(policy_request)
-                print("GetPolicies Response Received:")
-                print(policies_reply)
-            except grpc.RpcError as e:
-                print(e)
+            if actions == 'G':
+                try:
+                    policy_request = permission_pb2.GetPolicyRequest(user_id=input_user_id())
+                    policies_reply = stub.GetPolicies(policy_request)
+                    print(f"GetPolicies Response Received: {policies_reply}")
+                except grpc.RpcError as e:
+                    print(e)
+                    continue
+            elif actions == 'C':
+                try:
+                    policy_request = permission_pb2.CreatePolicyRequest(user_id=input_user_id(), object=input_object(), action=input_action())
+                    policies_reply = stub.CreatePolicy(policy_request)
+                    print(f"CreatePolicy Response Received: {policies_reply}")
+                except grpc.RpcError as e:
+                    print(e)
+                    continue
+            else:
+                print("Please select a valid option!")
                 continue
 
 
