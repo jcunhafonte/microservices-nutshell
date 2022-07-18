@@ -5,8 +5,8 @@ package permission;
 // The permission service definition.
 service Permission {
 	rpc GetPolicies (GetPolicyRequest) returns (GetPoliciesReply);
-
 	rpc CreatePolicy (CreatePolicyRequest) returns (CreatePolicyReply);
+	rpc CheckPolicy (CheckPolicyRequest) returns (CheckPolicyReply);
 }
 
 // The request message containing the user's id
@@ -38,4 +38,17 @@ message CreatePolicyReply {
 	int32 user_id = 1;
 	string object = 2;
     string action = 3;
+}
+
+// The request message for checking a policy
+message CheckPolicyRequest {
+	int32 user_id = 1;
+	string object = 2;
+    string action = 3;
+}
+
+// The response message for check policy request
+message CheckPolicyReply {
+	int32 status_code = 1;
+	string message = 2;
 }

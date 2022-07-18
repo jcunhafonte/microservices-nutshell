@@ -16,4 +16,4 @@ def input_action() -> str:
     return input("Please enter a action policy (or nothing to stop chatting): ")
 
 def input_available_actions() -> str:
-    return input("Do you want to get policies or create them?\n-(G)|(C): ")
+    return input("Do you want to get policies or create them?\n-(G)|(C)|(V): ")
