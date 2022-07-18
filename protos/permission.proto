@@ -49,6 +49,6 @@ message CheckPolicyRequest {
 
 // The response message for check policy request
 message CheckPolicyReply {
-	int32 status_code = 1;
+	bool access = 1;
 	string message = 2;
 }

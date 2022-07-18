@@ -3,33 +3,29 @@ import grpc
 
 from typing import List
 from functools import wraps
-from casbin.enforcer import Enforcer
-from casbin.persist.adapters import FileAdapter
+from ac.deps import enforcer
 
 
 class User:
     def __init__(self, id: int):
         self.id = str(id)
-        self.enforcer = Enforcer("authorization/casbinmodel.conf", FileAdapter('authorization/ac_policy.csv'))
 
     @staticmethod
     def get_all():
         return {1, 2}
 
     def get_policies(self) -> List[List]:
-        return self.enforcer.get_filtered_policy(0, self.id)
+        return enforcer.get_filtered_policy(0, self.id)
 
     def add_policy(self, object: str, action: str):
-        self.enforcer.add_named_policy("p", self.id, object, action)
-        self.enforcer.save_policy()
+        enforcer.add_named_policy("p", self.id, object, action)
+        enforcer.save_policy()
 
     def has_policy(self, object: str, action:str):
-        if self.enforcer.enforce(self.id, object, action):
-            return dict(status_code=200, message=f"User {self.id} has access!")
+        if enforcer.enforce(self.id, object, action):
+            return dict(access=200, message=f"User {self.id} has access!")
 
-        return dict(status_code=401, message=f"User {self.id} is not authorized")
-
-        
+        return dict(access=401, message=f"User {self.id} is forbidden!")
 
 
 def validate_user(func):
