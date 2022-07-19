@@ -23,9 +23,9 @@ class User:
 
     def has_policy(self, object: str, action:str):
         if enforcer.enforce(self.id, object, action):
-            return dict(access=200, message=f"User {self.id} has access!")
+            return dict(access=True, message=f"User {self.id} has access!")
 
-        return dict(access=401, message=f"User {self.id} is forbidden!")
+        return dict(access=False, message=f"User {self.id} is forbidden!")
 
 
 def validate_user(func):
