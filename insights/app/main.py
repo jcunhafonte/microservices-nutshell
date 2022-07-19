@@ -1,57 +1,10 @@
-# from pathlib import Path
-
-# import uvicorn
-# from fastapi import FastAPI
-# from fastapi.middleware.cors import CORSMiddleware
-# from tortoise.contrib.fastapi import register_tortoise
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 
 # from casbin.config import settings
-# from casbin.modules.meta.meta_module import MetaModule
-# from casbin.modules.users.users_module import UsersModule
-
-
-# app = FastAPI()
-
-
-
-# #
-# # register all middlewares & other stuff here
-# #
-# register_tortoise(app, settings.tortoise_orm_config)
-
-# app.add_middleware(
-#     CORSMiddleware,
-#     allow_origin_regex=r"https?://(.+\.)*localhost(:\d+)?",
-#     allow_methods=("*",),
-#     allow_headers=("*",),
-#     allow_credentials=True,
-#     max_age=3600,
-# )
-
-
-# #
-# # register all routers here
-# #
-# app.include_router(MetaModule.router)
-# app.include_router(UsersModule.router)
-
-
-# if __name__ == "__main__":
-#     uvicorn.run(
-#         "casbin.server:app",
-#         host="0.0.0.0",
-#         reload=not settings.python_env.startswith("prod"),
-#         reload_dirs=["casbin"],
-#     )
-
-import grpc
-import permission_pb2
-import permission_pb2_grpc
-
-
-from typing import Union
-from fastapi import FastAPI
+from modules.users.users_module import UsersModule
+from modules.meta.meta_module import MetaModule
 
 
 app = FastAPI(
@@ -61,12 +14,39 @@ app = FastAPI(
     version="0.0.1",
 )
 
-permissions_service = grpc.insecure_channel("permissions:50051")
-stub = permission_pb2_grpc.PermissionStub(permissions_service)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origin_regex=r"https?://(.+\.)*localhost(:\d+)?",
+    allow_methods=("*",),
+    allow_headers=("*",),
+    allow_credentials=True,
+    max_age=3600,
+)
 
-from modules.users.users_module import UsersModule
-
+#
+# register all routers here
+#
+app.include_router(MetaModule.router)
 app.include_router(UsersModule.router)
+
+
+# import grpc
+# import permission_pb2
+# import permission_pb2_grpc
+
+
+# from typing import Union
+# from fastapi import FastAPI
+
+
+
+
+# permissions_service = grpc.insecure_channel("permissions:50051")
+# stub = permission_pb2_grpc.PermissionStub(permissions_service)
+
+# from modules.users.users_module import UsersModule
+
+# app.include_router(UsersModule.router)
 
 # @app.get("/")
 # def read_root():

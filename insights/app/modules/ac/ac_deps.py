@@ -5,7 +5,7 @@ from casbin import Enforcer
 from fastapi import Depends, HTTPException, Request
 
 from modules.users.users_deps import get_current_user
-from modules.users.users_models import User
+from modules.users.users_models import UserModel
 
 
 @lru_cache
@@ -20,8 +20,8 @@ def get_enforcer() -> Enforcer:
 def get_authorized_user(
     req: Request,
     enforcer: Enforcer = Depends(get_enforcer),
-    me: User = Depends(get_current_user),
-) -> User:
+    me: UserModel = Depends(get_current_user),
+) -> UserModel:
     sub = me.role
     obj = "/reports"
     act = req.method

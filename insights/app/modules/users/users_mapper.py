@@ -1,11 +1,11 @@
-from .users_dtos import UserRead
-from .users_models import User
+from .users_dtos import User
+from .users_models import UserModel
 
 
 class UsersMapper:
-    def to_user_read(self, user: User) -> UserRead:
-        return UserRead(
+    def to_user_read(self, user: UserModel) -> User:
+        return User(
             id=user.id,
-            role=user.role,
-            username=user.username,
+            name=user.role,
+            email=user.email,
         )
