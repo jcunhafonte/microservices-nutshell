@@ -8,5 +8,5 @@ CREATE TABLE IF NOT EXISTS policy (
 
 -- Fill Policies table
 INSERT INTO policy(user_id, object,action) values('1', '*', '*');
-INSERT INTO policy(user_id, object,action) values('2', 'stock_reports', 'read');
+INSERT INTO policy(user_id, object,action) values('2', 'visualizations', 'read');
 INSERT INTO policy(user_id, object,action) values('2', 'reports', 'write');

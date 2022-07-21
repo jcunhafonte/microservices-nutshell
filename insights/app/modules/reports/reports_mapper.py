@@ -10,4 +10,4 @@ class ReportsMapper:
         return Report(id=report.id, title=report.title, description=report.description)
 
     def to_reports(self, reports: List[ReportModel]) -> Reports:
-        return Report(reports=[self.to_report(report) for report in reports])
+        return dict(reports=[self.to_report(report) for report in reports])
