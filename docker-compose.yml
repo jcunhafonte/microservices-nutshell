@@ -6,10 +6,10 @@ services:
       context: .
       dockerfile: permissions/Dockerfile
     volumes:
-      - ./permissions:/permissions/app
+      - ./permissions:/permissions
     ports:
       - 50051:50051
-    command: python app/main.py
+    command: python main.py
     networks:
       - microservices
     depends_on:

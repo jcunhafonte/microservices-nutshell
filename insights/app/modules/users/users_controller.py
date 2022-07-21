@@ -23,7 +23,7 @@ class UsersController:
     policies_mapper: PoliciesMapper = Depends()
 
     @router.get("/")
-    async def get_users(self, me: User = Depends(get_authorized_user)) -> Users:
+    async def get_users(self, me: User = Depends(get_authorized_user("user", "read"))) -> Users:
         """
         **Get users**
 
@@ -37,24 +37,24 @@ class UsersController:
         """
         **Get current user**
 
-        `:return: current user`
+        `:return: user`
         """
         return self.users_mapper.to_user(me)
 
     @router.get("/{user_id}")
-    async def get_user(self, user_id: int, me: User = Depends(get_authorized_user)) -> User:
+    async def get_user(self, user_id: int, me: User = Depends(get_authorized_user("user", "read"))) -> User:
         """
         **Get user**
 
         `:param user_id: user id`
 
-        `:return: list of users`
+        `:return: user`
         """
         user = self.users_service.get_user_by_id(user_id)
         return self.users_mapper.to_user(user)
 
     @router.get("/{user_id}/policies")
-    async def get_user_policies(self, user_id: int, me: User = Depends(get_authorized_user)) -> Policies:
+    async def get_user_policies(self, user_id: int, me: User = Depends(get_authorized_user("policies", "read"))) -> Policies:
         """
         **Get user policies**
 

@@ -1,7 +1,7 @@
 from fastapi_module import module
 
 
-from .policies_controller import PoliciesController
+from modules.policies.policies_controller import PoliciesController
 
 
 @module("/policies", controllers=(PoliciesController,))

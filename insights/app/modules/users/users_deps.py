@@ -2,8 +2,8 @@ from fastapi import Depends, HTTPException
 from fastapi.security import HTTPBearer
 
 
-from .users_service import UsersService
-from .users_models import UserModel
+from modules.users.users_service import UsersService
+from modules.users.users_models import UserModel
 
 
 BEARER_FORMAT = "JWT"
