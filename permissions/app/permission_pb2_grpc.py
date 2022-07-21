@@ -6,8 +6,7 @@ import permission_pb2 as permission__pb2
 
 
 class PermissionStub(object):
-    """The permission service definition.
-    """
+    """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
         """Constructor.
@@ -15,10 +14,10 @@ class PermissionStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.GetPolicies = channel.unary_unary(
-                '/permission.Permission/GetPolicies',
-                request_serializer=permission__pb2.GetPolicyRequest.SerializeToString,
-                response_deserializer=permission__pb2.GetPoliciesReply.FromString,
+        self.GetPoliciesByUser = channel.unary_unary(
+                '/permission.Permission/GetPoliciesByUser',
+                request_serializer=permission__pb2.GetPoliciesByUserRequest.SerializeToString,
+                response_deserializer=permission__pb2.GetPoliciesByUserReply.FromString,
                 )
         self.CreatePolicy = channel.unary_unary(
                 '/permission.Permission/CreatePolicy',
@@ -33,10 +32,9 @@ class PermissionStub(object):
 
 
 class PermissionServicer(object):
-    """The permission service definition.
-    """
+    """Missing associated documentation comment in .proto file."""
 
-    def GetPolicies(self, request, context):
+    def GetPoliciesByUser(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -57,10 +55,10 @@ class PermissionServicer(object):
 
 def add_PermissionServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'GetPolicies': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetPolicies,
-                    request_deserializer=permission__pb2.GetPolicyRequest.FromString,
-                    response_serializer=permission__pb2.GetPoliciesReply.SerializeToString,
+            'GetPoliciesByUser': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetPoliciesByUser,
+                    request_deserializer=permission__pb2.GetPoliciesByUserRequest.FromString,
+                    response_serializer=permission__pb2.GetPoliciesByUserReply.SerializeToString,
             ),
             'CreatePolicy': grpc.unary_unary_rpc_method_handler(
                     servicer.CreatePolicy,
@@ -80,11 +78,10 @@ def add_PermissionServicer_to_server(servicer, server):
 
  # This class is part of an EXPERIMENTAL API.
 class Permission(object):
-    """The permission service definition.
-    """
+    """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def GetPolicies(request,
+    def GetPoliciesByUser(request,
             target,
             options=(),
             channel_credentials=None,
@@ -94,9 +91,9 @@ class Permission(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/permission.Permission/GetPolicies',
-            permission__pb2.GetPolicyRequest.SerializeToString,
-            permission__pb2.GetPoliciesReply.FromString,
+        return grpc.experimental.unary_unary(request, target, '/permission.Permission/GetPoliciesByUser',
+            permission__pb2.GetPoliciesByUserRequest.SerializeToString,
+            permission__pb2.GetPoliciesByUserReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

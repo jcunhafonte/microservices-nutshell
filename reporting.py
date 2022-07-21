@@ -1,6 +1,10 @@
-import permissions.permission_pb2_grpc as permission_pb2_grpc
-import permissions.permission_pb2 as permission_pb2
+# import permissions.permission_pb2_grpc as permission_pb2_grpc
+# import permissions.permission_pb2 as permission_pb2
 import grpc
+
+
+import permission_pb2_grpc
+import permission_pb2
 
 
 from utils.input import input_action, input_available_actions, input_object, input_user_id

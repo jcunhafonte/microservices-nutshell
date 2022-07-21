@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 
-from modules.meta.meta_module import MetaModule
+from modules.health.health_module import HealthModule
 from modules.users.users_module import UsersModule
 from modules.policies.policies_module import PoliciesModule
 from modules.reports.reports_module import ReportsModule
@@ -12,7 +12,7 @@ from modules.visualizations.visualizations_module import VisualizationsModule
 app = FastAPI(
     debug=True,
     title="Insights Service",
-    description="Insights demo service to fetch permissions from permissions service",
+    description="Insights demo service to fetch permissions from permissions service.",
     version="0.0.1",
 )
 
@@ -25,7 +25,7 @@ app.add_middleware(
     max_age=3600,
 )
 
-app.include_router(MetaModule.router)
+app.include_router(HealthModule.router)
 app.include_router(UsersModule.router)
 app.include_router(ReportsModule.router)
 app.include_router(VisualizationsModule.router)

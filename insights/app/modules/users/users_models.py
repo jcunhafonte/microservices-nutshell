@@ -1,6 +1,3 @@
-from http.client import HTTPException
-
-
 class UserModel:
     users = {
         1: dict(

@@ -1,28 +1,30 @@
 import grpc
-import permission_pb2
-import permission_pb2_grpc
-
-
 from concurrent import futures
-from ac.user import User
+
+
+import permission_pb2_grpc
+from permission_pb2 import GetPoliciesByUserReply, GetPolicyByUserReply, CreatePolicyReply, CheckPolicyReply
+from policies.service import PoliciesService
 
 
 class PermissionServicer(permission_pb2_grpc.PermissionServicer):
-    def GetPolicies(self, request, context):
-        policies = User(request.user_id).get_policies()
-        policies = [permission_pb2.GetPolicyReply(object=policy[1], action=policy[2]) for policy in policies]
-        policies = permission_pb2.GetPoliciesReply(user_id=request.user_id, policies=policies)
+    policies_service = PoliciesService()
+
+    def GetPoliciesByUser(self, request, context) -> GetPoliciesByUserReply:
+        policies = self.policies_service.get_policies_by_user_id(request.user_id)
+        policies = [GetPolicyByUserReply(object=policy[1], action=policy[2]) for policy in policies]
+        policies = GetPoliciesByUserReply(user_id=request.user_id, policies=policies)
         return policies
 
     def CreatePolicy(self, request, context):
-        User(request.user_id).add_policy(request.object, request.action)
-        policy = permission_pb2.CreatePolicyReply(user_id=request.user_id, object=request.object, action=request.action)
+        policy = self.policies_service.create_policy(request.user_id, request.object, request.action)
+        policy = CreatePolicyReply(user_id=request.user_id, object=request.object, action=request.action)
         return policy
 
     def CheckPolicy(self, request, context):
-        check_policy = User(request.user_id).has_policy(request.object, request.action)
-        policy = permission_pb2.CheckPolicyReply(access=check_policy["access"], message=check_policy["message"])
-        return policy
+        check_policy = self.policies_service.has_policy(request.user_id, request.object, request.action)
+        check_policy = CheckPolicyReply(access=check_policy["access"], message=check_policy["message"])
+        return check_policy
 
 
 def serve():
