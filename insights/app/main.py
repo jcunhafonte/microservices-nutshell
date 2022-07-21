@@ -5,6 +5,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from modules.meta.meta_module import MetaModule
 from modules.users.users_module import UsersModule
 from modules.policies.policies_module import PoliciesModule
+from modules.reports.reports_module import ReportsModule
+from modules.visualizations.visualizations_module import VisualizationsModule
 
 
 app = FastAPI(
@@ -25,4 +27,6 @@ app.add_middleware(
 
 app.include_router(MetaModule.router)
 app.include_router(UsersModule.router)
+app.include_router(ReportsModule.router)
+app.include_router(VisualizationsModule.router)
 app.include_router(PoliciesModule.router)

@@ -24,7 +24,7 @@ class PoliciesController:
 
         Requires: `admin`
 
-        `:return: list of users`
+        `:return: policy`
         """
         policy = self.policies_service.create_policy()
         return self.policies_mapper.to_policy(policy)
