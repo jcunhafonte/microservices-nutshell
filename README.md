@@ -6,8 +6,6 @@ This project aims to showcase how two different services can communicate between
 - Insights service which is exposed over a REST API.
 - Permissions which is exposed over gRPC.
 
-![Architecture Diagram](/architecture.png "Architecture Diagram")
-
 ## Requirements
 * [Docker](https://docs.docker.com/get-docker)
 * [Docker Compose](https://docs.docker.com/compose/install/https://docs.localstack.cloud/get-started/#docker-compose)
@@ -29,20 +27,21 @@ $ make start
 $ make help
 ```
 
-| Commands          | Description                                                            |
-| ----------------- | ---------------------------------------------------------------------- |
-| help              | Available commands                                                     |
-| protos-create     | Create protos                                                          |
-| docker-build      | Docker build in detached mode                                          |
-| docker-delete     | Docker delete images, volumes and its dependencies                     |
-| docker-prune      | Docker image prune                                                     |
-| docker-up         | Docker compose up                                                      |
-| docker-down       | Docker compose down                                                    |
-| start             | Start application                                                      |
-| stop              | Stop application                                                       |
-| install           | Install application                                                    |
-| uninstall         | Uninstall application and its dependencies (images, volumes, networks) |
-| recreate          | Recreate application                                                   |
+| Commands          | Description                                                                  |
+| ----------------- | -----------------------------------------------------------------------------|
+| help              | Available commands                                                           |
+| protos-create     | Create protos                                                                |
+| docker-build      | Docker build in detached mode                                                |
+| docker-delete     | Docker delete images, volumes and its dependencies                           |
+| docker-prune      | Docker image prune                                                           |
+| docker-up         | Docker compose up                                                            |
+| docker-down       | Docker compose down                                                          |
+| start             | Start application                                                            |
+| stop              | Stop application                                                             |
+| install           | Install application                                                          |
+| uninstall         | Uninstall application and its dependencies (images, volumes, networks)       |
+| recreate          | Recreate application                                                         |
+| migrations-run    | Runs migrations creating policy table with casbin structure and initial data |
 
 ## Uninstalling
 ```sh
@@ -52,4 +51,9 @@ $ sh make uninstall
 ## Recreate
 ```sh
 $ sh make recreate 
+```
+
+## Run Migrations
+```sh
+$ sh make migrations-run  
 ```
