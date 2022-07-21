@@ -33,19 +33,14 @@ services:
       - microservices
     image: postgres
     expose:
-      - ${DATABASE_PORT}
+      - ${POSTGRES_PORT}
     ports:
-      - ${DATABASE_PORT}:${DATABASE_PORT}
-    command: -p ${DATABASE_PORT}
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
+    command: -p ${POSTGRES_PORT}
     volumes:
       - permissions-database:/var/lib/postgresql/data
       - ./init.sql:/init.sql
     hostname: ${DATABASE_HOST}
-    environment:
-      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
-      - POSTGRES_USER=${DATABASE_USER}
-      - POSTGRES_DB=${DATABASE_DATABASE}
-      - POSTGRES_PORT=${DATABASE_PORT}
     env_file:
       - .env
 
