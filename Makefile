@@ -16,7 +16,7 @@ docker-prune: ## Docker image prune
 	@docker image prune --force
 
 docker-up: ## Docker compose up
-	@docker compose up
+	@docker compose up --renew-anon-volumes
 
 docker-down: ## Docker compose down
 	@docker compose down
@@ -24,3 +24,6 @@ docker-down: ## Docker compose down
 start: docker-up ## Start application
 
 stop: docker-down ## Stop application
+
+migrations-run:
+	@docker exec -it permissions-database psql -h 0.0.0.0 -p 5433 -U permission-user -d permission -a -f init.sql
