@@ -1,4 +1,4 @@
-.PHONY: help protos-create docker-build docker-delete docker-prune docker-up docker-down start stop install uninstall recreate
+.PHONY: help protos-create docker-build docker-delete docker-prune docker-up docker-down start stop install uninstall recreate migrations-run
 
 help: ## Available commands
 	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/:.*##\s*/##/g' | awk -F'##' '{ printf "%-14s %s\n", $$1, $$2 }'
