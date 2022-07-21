@@ -4,7 +4,7 @@ import permission_pb2_grpc
 
 
 from concurrent import futures
-from ac.user import User, validate_user
+from ac.user import User
 
 
 class PermissionServicer(permission_pb2_grpc.PermissionServicer):
@@ -14,17 +14,15 @@ class PermissionServicer(permission_pb2_grpc.PermissionServicer):
         policies = permission_pb2.GetPoliciesReply(user_id=request.user_id, policies=policies)
         return policies
 
-#     @validate_user
-#     def CreatePolicy(self, request, context):
-#         User(request.user_id).add_policy(request.object, request.action)
-#         policy = permission_pb2.CreatePolicyReply(user_id=request.user_id, object=request.object, action=request.action)
-#         return policy
+    def CreatePolicy(self, request, context):
+        User(request.user_id).add_policy(request.object, request.action)
+        policy = permission_pb2.CreatePolicyReply(user_id=request.user_id, object=request.object, action=request.action)
+        return policy
 
-#     @validate_user
-#     def CheckPolicy(self, request, context):
-#         check_policy = User(request.user_id).has_policy(request.object, request.action)
-#         policy = permission_pb2.CheckPolicyReply(access=check_policy["access"], message=check_policy["message"])
-#         return policy
+    def CheckPolicy(self, request, context):
+        check_policy = User(request.user_id).has_policy(request.object, request.action)
+        policy = permission_pb2.CheckPolicyReply(access=check_policy["access"], message=check_policy["message"])
+        return policy
 
 
 def serve():
