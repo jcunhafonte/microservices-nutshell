@@ -1,8 +1,8 @@
 from typing import List
 
 
-from .users_dtos import User, Users
-from .users_models import UserModel
+from modules.users.users_dtos import User, Users
+from modules.users.users_models import UserModel
 
 
 class UsersMapper:

@@ -1,7 +1,7 @@
 from fastapi_module import module
 
 
-from .meta_controller import MetaController
+from modules.meta.meta_controller import MetaController
 
 
 @module("/meta", controllers=(MetaController,))

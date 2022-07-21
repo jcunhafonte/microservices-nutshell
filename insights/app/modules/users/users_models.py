@@ -8,7 +8,7 @@ class UserModel:
             name="Cloudbeds Admin",
             email="admin@cloudbeds.com",
         ),
-         2: dict(
+        2: dict(
             id=2,
             name="Alice Wonderson",
             email="alice@example.com",
@@ -21,11 +21,11 @@ class UserModel:
         self.email = email
 
     @staticmethod
-    def get(id: int) -> dict:
+    def get(id: int) -> dict | None:
         if id in UserModel.users:
             return UserModel(**UserModel.users[id])
 
-        raise HTTPException(status_code=404)
+        return None
 
     @staticmethod
     def all() -> list:

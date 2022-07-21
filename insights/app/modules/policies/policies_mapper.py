@@ -1,8 +1,8 @@
 from typing import List
 
 
-from .policies_dtos import Policy, Policies
-from .policies_models import PolicyModel
+from modules.policies.policies_dtos import Policy, Policies
+from modules.policies.policies_models import PolicyModel
 
 
 class PoliciesMapper:

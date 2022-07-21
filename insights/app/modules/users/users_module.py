@@ -1,7 +1,7 @@
 from fastapi_module import module
 
 
-from .users_controller import UsersController
+from modules.users.users_controller import UsersController
 
 
 @module("/users", controllers=(UsersController,))
