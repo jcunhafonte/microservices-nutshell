@@ -1,7 +1,7 @@
 from typing import List
 
 
-from users.users_models import UserModel
+from users.models import UserModel
 
 
 class UsersService:

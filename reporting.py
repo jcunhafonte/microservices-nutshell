@@ -20,8 +20,8 @@ def run():
 
             try:
                 if actions == Actions.G.name:
-                    policy_request = permission_pb2.GetPolicyRequest(user_id=input_user_id())
-                    policies_reply = stub.GetPolicies(policy_request)
+                    policy_request = permission_pb2.GetPoliciesByUserRequest(user_id=input_user_id())
+                    policies_reply = stub.GetPoliciesByUser(policy_request)
                     print(f"GetPolicies Response Received: {policies_reply}")
                 elif actions == Actions.C.name:
                     policy_request = permission_pb2.CreatePolicyRequest(user_id=input_user_id(), object=input_object(), action=input_action())

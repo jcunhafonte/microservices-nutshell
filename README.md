@@ -6,6 +6,8 @@ This project aims to showcase how two different services can communicate between
 - Insights service which is exposed over a REST API.
 - Permissions which is exposed over gRPC.
 
+![Architecture Diagram](/architecture.png "Architecture Diagram")
+
 ## Requirements
 * [Docker](https://docs.docker.com/get-docker)
 * [Docker Compose](https://docs.docker.com/compose/install/https://docs.localstack.cloud/get-started/#docker-compose)
