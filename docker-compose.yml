@@ -12,6 +12,8 @@ services:
     command: python main.py
     networks:
       - microservices
+    depends_on:
+      - permissions-database
 
   insights:
     container_name: insights
@@ -25,6 +27,24 @@ services:
     command: uvicorn main:app --host 0.0.0.0 --reload
     networks:
       - microservices
+  permissions-database:
+    container_name: permissions-database
+    networks:
+      - microservices
+    image: postgres
+    expose:
+      - ${POSTGRES_PORT}
+    ports:
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
+    command: -p ${POSTGRES_PORT}
+    volumes:
+      - permissions-database:/var/lib/postgresql/data
+      - ./init.sql:/init.sql
+    hostname: ${DATABASE_HOST}
+    env_file:
+      - .env
 
+volumes:
+  permissions-database:
 networks:
   microservices:
