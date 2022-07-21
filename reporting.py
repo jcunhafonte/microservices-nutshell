@@ -1,10 +1,11 @@
-import permission_pb2_grpc as permission_pb2_grpc
-import permission_pb2 as permission_pb2
+import permissions.permission_pb2_grpc as permission_pb2_grpc
+import permissions.permission_pb2 as permission_pb2
 import grpc
 
 
 from utils.input import input_action, input_available_actions, input_object, input_user_id
 from enums.actions import Actions
+
 
 def run():
     with grpc.insecure_channel('localhost:50051') as channel:

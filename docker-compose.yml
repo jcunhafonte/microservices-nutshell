@@ -1,7 +1,28 @@
 version: "3.8"
 services:
-  permission:
-    build: .
+  permissions:
+    container_name: permissions
+    build:
+      context: .
+      dockerfile: permissions/Dockerfile
+    volumes:
+      - ./permissions:/permissions/app
+    ports:
+      - 50051:50051
+    command: python app/main.py
+    networks:
+      - microservices
+
+  insights:
+    container_name: insights
+    build:
+      context: .
+      dockerfile: insights/Dockerfile
+    volumes:
+      - ./insights:/insights
+    ports:
+      - 8000:8000
+    command: uvicorn main:app --host 0.0.0.0 --reload
     networks:
       - microservices
 
