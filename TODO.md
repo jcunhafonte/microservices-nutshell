@@ -1,8 +1,7 @@
 ## TODO
 
-1. Create postgres cluster
-2. Set casbin adapter to the postgres cluster
-3. Create reports resource
-4. Create stock_reports resource
-5. Generate Bearer token for admin user
-6. Generate Bearer token for user
+1. Create postgres cluster -> Lucas
+2. Set casbin adapter to the postgres cluster -> Lucas
+3. Create reports resource -> Lucas
+4. Create visualizations resource -> Lucas
+5. Develop POST policy just for the user id -> Admin
