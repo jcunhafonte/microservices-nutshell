@@ -30,6 +30,3 @@ install: docker-build ## Install application
 uninstall: docker-delete docker-prune ## Uninstall application and its dependencies (images, volumes, networks)
 
 recreate: uninstall install ## Recreate application
-
-migrations-run: ## Run migrations generating table and inserting data
-	@docker exec -it permissions-database psql -h 0.0.0.0 -p 5433 -U permission-user -d permission -a -f init.sql

@@ -6,7 +6,7 @@ from permission_pb2_grpc import PermissionStub
 
 
 class PoliciesService:
-    channel = grpc.insecure_channel("permissions:50051")
+    channel = grpc.insecure_channel("permissions-service:50051")
     stub = PermissionStub(channel)
 
     def get_policies_by_user_id(self, user_id: int) -> GetPoliciesByUserReply:

@@ -1,7 +1,7 @@
 version: "3.8"
 services:
-  permissions:
-    container_name: permissions
+  permissions-service:
+    container_name: permissions-service
     build:
       context: .
       dockerfile: permissions/Dockerfile
@@ -15,8 +15,8 @@ services:
     depends_on:
       - permissions-database
 
-  insights:
-    container_name: insights
+  insights-service:
+    container_name: insights-service
     build:
       context: .
       dockerfile: insights/Dockerfile
@@ -39,7 +39,7 @@ services:
     command: -p ${POSTGRES_PORT}
     volumes:
       - permissions-database:/var/lib/postgresql/data
-      - ./init.sql:/init.sql
+      - ./permissions/init.sql:/docker-entrypoint-initdb.d/init.sql
     hostname: ${DATABASE_HOST}
     env_file:
       - .env
