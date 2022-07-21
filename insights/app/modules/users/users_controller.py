@@ -1,34 +1,66 @@
-from fastapi import Depends, HTTPException
-from fastapi.security import OAuth2PasswordRequestForm
+from fastapi import Depends
 from fastapi_module import InferringRouter, controller
 
-from modules.ac.ac_deps import get_authorized_user
+
+from modules.authorization.authorization_deps import get_authorized_user
+from modules.users.users_dtos import User, Users
+from modules.users.users_mapper import UsersMapper
+from modules.users.users_service import UsersService
+from modules.users.users_deps import get_current_user
+from modules.policies.policies_service import PoliciesService
+from modules.policies.policies_mapper import PoliciesMapper
+from modules.policies.policies_dtos import Policies
 
 
-from .users_dtos import Users
-from .users_mapper import UsersMapper
-# from .users_models import User
-from .users_service import UsersService
-
-
-router = InferringRouter(tags=["users"])
+router = InferringRouter(tags=["Users"])
 
 
 @controller(router, version=1.1)
 class UsersController:
     users_service: UsersService = Depends()
     users_mapper: UsersMapper = Depends()
+    policies_service: PoliciesService = Depends()
+    policies_mapper: PoliciesMapper = Depends()
 
     @router.get("/")
-    async def get_users(self) -> Users:
-      #  qs = self.users_service.read_users_queryset()
-        return {"users": []}
+    async def get_users(self, me: User = Depends(get_authorized_user)) -> Users:
+        """
+        **Get users**
 
-    # @router.get("/{user_id}")
-    # async def read_user(
-    #     self,
-    #     user_id: int,
-    #     me: User = Depends(get_authorized_user),
-    # ) -> UserRead:
-    #     user = await self.users_service.read_user_by_id(user_id)
-    #     return self.users_mapper.to_user_read(user)
+        `:return: list of users`
+        """
+        users = self.users_service.get_users()
+        return  self.users_mapper.to_users(users)
+
+    @router.get("/me")
+    async def get_current_user(self, me: User = Depends(get_current_user)) -> User:
+        """
+        **Get current user**
+
+        `:return: current user`
+        """
+        return self.users_mapper.to_user(me)
+
+    @router.get("/{user_id}")
+    async def get_user(self, user_id: int, me: User = Depends(get_authorized_user)) -> User:
+        """
+        **Get user**
+
+        `:param user_id: user id`
+
+        `:return: list of users`
+        """
+        user = self.users_service.get_user_by_id(user_id)
+        return self.users_mapper.to_user(user)
+
+    @router.get("/{user_id}/policies")
+    async def get_user_policies(self, user_id: int, me: User = Depends(get_authorized_user)) -> Policies:
+        """
+        **Get user policies**
+
+        `:param user_id: user id`
+
+        `:return: list of policies`
+        """
+        policies = self.policies_service.get_policies_by_user_id(user_id).policies
+        return self.policies_mapper.to_policies(policies)

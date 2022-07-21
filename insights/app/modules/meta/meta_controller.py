@@ -2,7 +2,7 @@ from fastapi import Request
 from fastapi_module import InferringRouter, controller
 
 
-router = InferringRouter(tags=["meta"])
+router = InferringRouter(tags=["Meta"])
 
 
 @controller(router, version=1.1)

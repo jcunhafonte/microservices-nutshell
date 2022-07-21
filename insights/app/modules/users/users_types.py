@@ -1,6 +1,6 @@
 from enum import Enum
 
 
-class Role(str, Enum):
-    ADMIN = "admin"
-    PROPERTY = "property"
+class Policy(str, Enum):
+    REPORTS = "reports"
+    STOCK_REPORTS = "reports"
