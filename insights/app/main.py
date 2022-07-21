@@ -2,8 +2,9 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 
-from modules.users.users_module import UsersModule
 from modules.meta.meta_module import MetaModule
+from modules.users.users_module import UsersModule
+from modules.policies.policies_module import PoliciesModule
 
 
 app = FastAPI(
@@ -24,3 +25,4 @@ app.add_middleware(
 
 app.include_router(MetaModule.router)
 app.include_router(UsersModule.router)
+app.include_router(PoliciesModule.router)

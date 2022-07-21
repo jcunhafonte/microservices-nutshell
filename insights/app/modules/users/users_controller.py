@@ -30,7 +30,7 @@ class UsersController:
         `:return: list of users`
         """
         users = self.users_service.get_users()
-        return  self.users_mapper.to_users(users)
+        return self.users_mapper.to_users(users)
 
     @router.get("/me")
     async def get_current_user(self, me: User = Depends(get_current_user)) -> User:
