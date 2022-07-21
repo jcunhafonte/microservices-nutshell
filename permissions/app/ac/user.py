@@ -11,7 +11,7 @@ class User:
         self.id = str(id)
 
     @staticmethod
-    def get_all():
+    def all():
         return {1, 2}
 
     def get_policies(self) -> List[List]:
@@ -31,7 +31,7 @@ class User:
 def validate_user(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
-        if args[1].user_id not in User.get_all():
+        if args[1].user_id not in User.all():
             raise grpc.RpcError(grpc.StatusCode.NOT_FOUND, 'User not found')
         return func(*args, **kwargs)
     return wrapper

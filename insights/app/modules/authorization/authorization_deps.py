@@ -1,8 +1,8 @@
 from fastapi import Depends, HTTPException
 
 
-from modules.users.users_deps import get_current_user
 from modules.users.users_models import UserModel
+from modules.users.users_deps import get_current_user
 from modules.policies.policies_service import PoliciesService
 
 

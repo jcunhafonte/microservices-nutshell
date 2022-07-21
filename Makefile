@@ -1,4 +1,4 @@
-.PHONY: help protos-create docker-build docker-delete docker-prune docker-up docker-down start stop
+.PHONY: help protos-create docker-build docker-delete docker-prune docker-up docker-down start stop install uninstall recreate
 
 help: ## Available commands
 	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/:.*##\s*/##/g' | awk -F'##' '{ printf "%-14s %s\n", $$1, $$2 }'
@@ -24,3 +24,9 @@ docker-down: ## Docker compose down
 start: docker-up ## Start application
 
 stop: docker-down ## Stop application
+
+install: docker-build ## Install application
+
+uninstall: docker-delete docker-prune ## Uninstall application and its dependencies (images, volumes, networks)
+
+recreate: uninstall install ## Recreate application
