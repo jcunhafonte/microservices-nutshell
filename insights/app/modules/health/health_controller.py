@@ -9,6 +9,11 @@ router = InferringRouter(tags=["Health"])
 class HealthController:
     @router.get("/")
     def health(self, req: Request) -> dict:
+        """
+        **Get Health Status**
+
+        `:return: dict`
+        """
         return {
             "healthy": True,
         }
