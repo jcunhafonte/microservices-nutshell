@@ -39,7 +39,7 @@ services:
     command: -p ${POSTGRES_PORT}
     volumes:
       - permissions-database:/var/lib/postgresql/data
-      - ./permissions/init.sql:/docker-entrypoint-initdb.d/init.sql
+      # - ./permissions/init.sql:/docker-entrypoint-initdb.d/init.sql
     hostname: ${DATABASE_HOST}
     env_file:
       - .env
