@@ -1,9 +1,10 @@
-.PHONY: help protos-create docker-build docker-delete docker-prune docker-up docker-down start stop install uninstall recreate
+.PHONY: help protos-generate docker-build docker-delete docker-prune docker-up docker-down start stop install uninstall recreate
 
 help: ## Available commands
 	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/:.*##\s*/##/g' | awk -F'##' '{ printf "%-14s %s\n", $$1, $$2 }'
 
-protos-create: ## Create protos
+protos-generate: ## Generate protos
+	python3 -m grpc_tools.protoc -I ./protos --python_out=. --grpc_python_out=. ./protos/permission.proto
 	python3 -m grpc_tools.protoc -I ./protos --python_out=. --grpc_python_out=. ./protos/permission.proto
 
 docker-build: ## Docker build in detached mode
