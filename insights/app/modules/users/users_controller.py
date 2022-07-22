@@ -27,6 +27,8 @@ class UsersController:
         """
         **Get users**
 
+        Requires: `admin`
+
         `:return: list of users`
         """
         users = self.users_service.get_users()
@@ -46,6 +48,8 @@ class UsersController:
         """
         **Get user**
 
+        Requires: `admin`
+
         `:param user_id: user id`
 
         `:return: user`
@@ -57,6 +61,8 @@ class UsersController:
     async def get_user_policies(self, user_id: int, me: User = Depends(get_authorized_user("policies", "read"))) -> Policies:
         """
         **Get user policies**
+
+        Requires: `admin`
 
         `:param user_id: user id`
 
