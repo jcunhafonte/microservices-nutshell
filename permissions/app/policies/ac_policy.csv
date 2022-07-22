@@ -1,7 +1,0 @@
-p, 1, *, *
-p, 2, stock_reports, read
-p, 2, reports, write
-p, 2, policies, read
-p, 2, reports, read
-p, 1, jose, read
-p, 2, jose, read
