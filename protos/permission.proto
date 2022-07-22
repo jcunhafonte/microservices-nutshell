@@ -12,13 +12,12 @@ service Permission {
 }
 
 message GetPolicyReply {
-	int32 user_id = 1;
-    string object = 2;
-    string action = 3;
+    string object = 1;
+    string action = 2;
 }
 
 message GetPoliciesReply {
-	repeated GetPolicyReply policies = 2;
+	repeated GetPolicyReply policies = 1;
 }
 
 message GetPoliciesByUserRequest {
@@ -26,7 +25,7 @@ message GetPoliciesByUserRequest {
 }
 
 message GetPoliciesByUserReply {
-	repeated GetPolicyReply policies = 2;
+	repeated GetPolicyReply policies = 1;
 }
 
 message CreatePolicyRequest {
