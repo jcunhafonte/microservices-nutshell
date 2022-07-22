@@ -12,32 +12,41 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
+from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x10permission.proto\x12\npermission\"+\n\x18GetPoliciesByUserRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x05\"6\n\x14GetPolicyByUserReply\x12\x0e\n\x06object\x18\x01 \x01(\t\x12\x0e\n\x06\x61\x63tion\x18\x02 \x01(\t\"]\n\x16GetPoliciesByUserReply\x12\x0f\n\x07user_id\x18\x01 \x01(\x05\x12\x32\n\x08policies\x18\x02 \x03(\x0b\x32 .permission.GetPolicyByUserReply\"F\n\x13\x43reatePolicyRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x05\x12\x0e\n\x06object\x18\x02 \x01(\t\x12\x0e\n\x06\x61\x63tion\x18\x03 \x01(\t\"D\n\x11\x43reatePolicyReply\x12\x0f\n\x07user_id\x18\x01 \x01(\x05\x12\x0e\n\x06object\x18\x02 \x01(\t\x12\x0e\n\x06\x61\x63tion\x18\x03 \x01(\t\"E\n\x12\x43heckPolicyRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x05\x12\x0e\n\x06object\x18\x02 \x01(\t\x12\x0e\n\x06\x61\x63tion\x18\x03 \x01(\t\"3\n\x10\x43heckPolicyReply\x12\x0e\n\x06\x61\x63\x63\x65ss\x18\x01 \x01(\x08\x12\x0f\n\x07message\x18\x02 \x01(\t2\x88\x02\n\nPermission\x12]\n\x11GetPoliciesByUser\x12$.permission.GetPoliciesByUserRequest\x1a\".permission.GetPoliciesByUserReply\x12N\n\x0c\x43reatePolicy\x12\x1f.permission.CreatePolicyRequest\x1a\x1d.permission.CreatePolicyReply\x12K\n\x0b\x43heckPolicy\x12\x1e.permission.CheckPolicyRequest\x1a\x1c.permission.CheckPolicyReplyb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x10permission.proto\x12\npermission\x1a\x1bgoogle/protobuf/empty.proto\"0\n\x0eGetPolicyReply\x12\x0e\n\x06object\x18\x02 \x01(\t\x12\x0e\n\x06\x61\x63tion\x18\x03 \x01(\t\"@\n\x10GetPoliciesReply\x12,\n\x08policies\x18\x02 \x03(\x0b\x32\x1a.permission.GetPolicyReply\"+\n\x18GetPoliciesByUserRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x05\"F\n\x16GetPoliciesByUserReply\x12,\n\x08policies\x18\x02 \x03(\x0b\x32\x1a.permission.GetPolicyReply\"F\n\x13\x43reatePolicyRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x05\x12\x0e\n\x06object\x18\x02 \x01(\t\x12\x0e\n\x06\x61\x63tion\x18\x03 \x01(\t\"D\n\x11\x43reatePolicyReply\x12\x0f\n\x07user_id\x18\x01 \x01(\x05\x12\x0e\n\x06object\x18\x02 \x01(\t\x12\x0e\n\x06\x61\x63tion\x18\x03 \x01(\t\"E\n\x12\x43heckPolicyRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x05\x12\x0e\n\x06object\x18\x02 \x01(\t\x12\x0e\n\x06\x61\x63tion\x18\x03 \x01(\t\"3\n\x10\x43heckPolicyReply\x12\x0e\n\x06\x61\x63\x63\x65ss\x18\x01 \x01(\x08\x12\x0f\n\x07message\x18\x02 \x01(\t2\xcd\x02\n\nPermission\x12\x43\n\x0bGetPolicies\x12\x16.google.protobuf.Empty\x1a\x1c.permission.GetPoliciesReply\x12]\n\x11GetPoliciesByUser\x12$.permission.GetPoliciesByUserRequest\x1a\".permission.GetPoliciesByUserReply\x12N\n\x0c\x43reatePolicy\x12\x1f.permission.CreatePolicyRequest\x1a\x1d.permission.CreatePolicyReply\x12K\n\x0b\x43heckPolicy\x12\x1e.permission.CheckPolicyRequest\x1a\x1c.permission.CheckPolicyReplyb\x06proto3')
 
 
 
+_GETPOLICYREPLY = DESCRIPTOR.message_types_by_name['GetPolicyReply']
+_GETPOLICIESREPLY = DESCRIPTOR.message_types_by_name['GetPoliciesReply']
 _GETPOLICIESBYUSERREQUEST = DESCRIPTOR.message_types_by_name['GetPoliciesByUserRequest']
-_GETPOLICYBYUSERREPLY = DESCRIPTOR.message_types_by_name['GetPolicyByUserReply']
 _GETPOLICIESBYUSERREPLY = DESCRIPTOR.message_types_by_name['GetPoliciesByUserReply']
 _CREATEPOLICYREQUEST = DESCRIPTOR.message_types_by_name['CreatePolicyRequest']
 _CREATEPOLICYREPLY = DESCRIPTOR.message_types_by_name['CreatePolicyReply']
 _CHECKPOLICYREQUEST = DESCRIPTOR.message_types_by_name['CheckPolicyRequest']
 _CHECKPOLICYREPLY = DESCRIPTOR.message_types_by_name['CheckPolicyReply']
+GetPolicyReply = _reflection.GeneratedProtocolMessageType('GetPolicyReply', (_message.Message,), {
+  'DESCRIPTOR' : _GETPOLICYREPLY,
+  '__module__' : 'permission_pb2'
+  # @@protoc_insertion_point(class_scope:permission.GetPolicyReply)
+  })
+_sym_db.RegisterMessage(GetPolicyReply)
+
+GetPoliciesReply = _reflection.GeneratedProtocolMessageType('GetPoliciesReply', (_message.Message,), {
+  'DESCRIPTOR' : _GETPOLICIESREPLY,
+  '__module__' : 'permission_pb2'
+  # @@protoc_insertion_point(class_scope:permission.GetPoliciesReply)
+  })
+_sym_db.RegisterMessage(GetPoliciesReply)
+
 GetPoliciesByUserRequest = _reflection.GeneratedProtocolMessageType('GetPoliciesByUserRequest', (_message.Message,), {
   'DESCRIPTOR' : _GETPOLICIESBYUSERREQUEST,
   '__module__' : 'permission_pb2'
   # @@protoc_insertion_point(class_scope:permission.GetPoliciesByUserRequest)
   })
 _sym_db.RegisterMessage(GetPoliciesByUserRequest)
-
-GetPolicyByUserReply = _reflection.GeneratedProtocolMessageType('GetPolicyByUserReply', (_message.Message,), {
-  'DESCRIPTOR' : _GETPOLICYBYUSERREPLY,
-  '__module__' : 'permission_pb2'
-  # @@protoc_insertion_point(class_scope:permission.GetPolicyByUserReply)
-  })
-_sym_db.RegisterMessage(GetPolicyByUserReply)
 
 GetPoliciesByUserReply = _reflection.GeneratedProtocolMessageType('GetPoliciesByUserReply', (_message.Message,), {
   'DESCRIPTOR' : _GETPOLICIESBYUSERREPLY,
@@ -78,20 +87,22 @@ _PERMISSION = DESCRIPTOR.services_by_name['Permission']
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
-  _GETPOLICIESBYUSERREQUEST._serialized_start=32
-  _GETPOLICIESBYUSERREQUEST._serialized_end=75
-  _GETPOLICYBYUSERREPLY._serialized_start=77
-  _GETPOLICYBYUSERREPLY._serialized_end=131
-  _GETPOLICIESBYUSERREPLY._serialized_start=133
-  _GETPOLICIESBYUSERREPLY._serialized_end=226
-  _CREATEPOLICYREQUEST._serialized_start=228
-  _CREATEPOLICYREQUEST._serialized_end=298
-  _CREATEPOLICYREPLY._serialized_start=300
-  _CREATEPOLICYREPLY._serialized_end=368
-  _CHECKPOLICYREQUEST._serialized_start=370
-  _CHECKPOLICYREQUEST._serialized_end=439
-  _CHECKPOLICYREPLY._serialized_start=441
-  _CHECKPOLICYREPLY._serialized_end=492
-  _PERMISSION._serialized_start=495
-  _PERMISSION._serialized_end=759
+  _GETPOLICYREPLY._serialized_start=61
+  _GETPOLICYREPLY._serialized_end=109
+  _GETPOLICIESREPLY._serialized_start=111
+  _GETPOLICIESREPLY._serialized_end=175
+  _GETPOLICIESBYUSERREQUEST._serialized_start=177
+  _GETPOLICIESBYUSERREQUEST._serialized_end=220
+  _GETPOLICIESBYUSERREPLY._serialized_start=222
+  _GETPOLICIESBYUSERREPLY._serialized_end=292
+  _CREATEPOLICYREQUEST._serialized_start=294
+  _CREATEPOLICYREQUEST._serialized_end=364
+  _CREATEPOLICYREPLY._serialized_start=366
+  _CREATEPOLICYREPLY._serialized_end=434
+  _CHECKPOLICYREQUEST._serialized_start=436
+  _CHECKPOLICYREQUEST._serialized_end=505
+  _CHECKPOLICYREPLY._serialized_start=507
+  _CHECKPOLICYREPLY._serialized_end=558
+  _PERMISSION._serialized_start=561
+  _PERMISSION._serialized_end=894
 # @@protoc_insertion_point(module_scope)

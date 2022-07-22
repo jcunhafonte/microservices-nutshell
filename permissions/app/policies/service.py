@@ -5,6 +5,9 @@ from policies.deps import enforcer
 
 
 class PoliciesService:
+    def get_policies(self) -> List[dict]:
+        return enforcer.get_policy()
+
     def get_policies_by_user_id(self, user_id: int) -> List[tuple]:
         return enforcer.get_filtered_policy(0, str(user_id))
 

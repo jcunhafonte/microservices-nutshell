@@ -3,7 +3,7 @@ from concurrent import futures
 
 
 import permission_pb2_grpc
-from permission_pb2 import GetPoliciesByUserReply, GetPolicyByUserReply, CreatePolicyReply, CheckPolicyReply
+from permission_pb2 import GetPoliciesReply, GetPolicyReply, GetPoliciesByUserReply, CreatePolicyReply, CheckPolicyReply
 from users.validations import validate_user
 from policies.service import PoliciesService
 
@@ -11,11 +11,17 @@ from policies.service import PoliciesService
 class PermissionServicer(permission_pb2_grpc.PermissionServicer):
     policies_service = PoliciesService()
 
+    def GetPolicies(self, request, context):
+        policies = self.policies_service.get_policies()
+        policies = [GetPolicyReply(object=policy[1], action=policy[2]) for policy in policies]
+        policies = GetPoliciesReply(policies=policies)
+        return policies
+
     @validate_user
     def GetPoliciesByUser(self, request, context) -> GetPoliciesByUserReply:
         policies = self.policies_service.get_policies_by_user_id(request.user_id)
-        policies = [GetPolicyByUserReply(object=policy[1], action=policy[2]) for policy in policies]
-        policies = GetPoliciesByUserReply(user_id=request.user_id, policies=policies)
+        policies = [GetPolicyReply(object=policy[1], action=policy[2]) for policy in policies]
+        policies = GetPoliciesByUserReply(policies=policies)
         return policies
 
     @validate_user

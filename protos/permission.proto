@@ -2,24 +2,31 @@ syntax = "proto3";
 
 package permission;
 
+import "google/protobuf/empty.proto";
+
 service Permission {
+	rpc GetPolicies (google.protobuf.Empty) returns (GetPoliciesReply);
 	rpc GetPoliciesByUser (GetPoliciesByUserRequest) returns (GetPoliciesByUserReply);
 	rpc CreatePolicy (CreatePolicyRequest) returns (CreatePolicyReply);
 	rpc CheckPolicy (CheckPolicyRequest) returns (CheckPolicyReply);
+}
+
+message GetPolicyReply {
+	int32 user_id = 1;
+    string object = 2;
+    string action = 3;
+}
+
+message GetPoliciesReply {
+	repeated GetPolicyReply policies = 2;
 }
 
 message GetPoliciesByUserRequest {
 	int32 user_id = 1;
 }
 
-message GetPolicyByUserReply {
-    string object = 1;
-    string action = 2;
-}
-
 message GetPoliciesByUserReply {
-	int32 user_id = 1;
-	repeated GetPolicyByUserReply policies = 2;
+	repeated GetPolicyReply policies = 2;
 }
 
 message CreatePolicyRequest {
