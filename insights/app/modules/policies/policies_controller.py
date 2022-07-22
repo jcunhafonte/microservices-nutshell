@@ -6,7 +6,7 @@ from modules.authorization.authorization_deps import get_authorized_user
 from modules.users.users_dtos import User
 from modules.policies.policies_service import PoliciesService
 from modules.policies.policies_mapper import PoliciesMapper
-from modules.policies.policies_dtos import Policy, PolicyRequest
+from modules.policies.policies_dtos import Policy, PolicyRequest, Policies
 
 
 router = InferringRouter(tags=["Policies"])
@@ -16,6 +16,18 @@ router = InferringRouter(tags=["Policies"])
 class PoliciesController:
     policies_service: PoliciesService = Depends()
     policies_mapper: PoliciesMapper = Depends()
+
+    @router.get("/")
+    async def get_policies(self, me: User = Depends(get_authorized_user("policies", "write"))) -> Policies:
+        """
+        **Get policies**
+
+        Requires: `admin`
+
+        `:return: policies`
+        """
+        policies = self.policies_service.get_policies().policies
+        return self.policies_mapper.to_policies(policies)
 
     @router.post("/")
     async def create_policy(self, policy: PolicyRequest, me: User = Depends(get_authorized_user("policies", "write"))) -> Policy:

@@ -9,24 +9,14 @@ services:
       - ./permissions:/permissions
     ports:
       - 50051:50051
+    env_file:
+      - .env
     command: python main.py
     networks:
       - microservices
     depends_on:
       - permissions-database
 
-  insights-service:
-    container_name: insights-service
-    build:
-      context: .
-      dockerfile: insights/Dockerfile
-    volumes:
-      - ./insights:/insights
-    ports:
-      - 8000:8000
-    command: uvicorn main:app --host 0.0.0.0 --reload
-    networks:
-      - microservices
   permissions-database:
     container_name: permissions-database
     networks:
@@ -43,6 +33,19 @@ services:
     hostname: ${DATABASE_HOST}
     env_file:
       - .env
+
+  insights-service:
+    container_name: insights-service
+    build:
+      context: .
+      dockerfile: insights/Dockerfile
+    volumes:
+      - ./insights:/insights
+    ports:
+      - 8000:8000
+    command: uvicorn main:app --host 0.0.0.0 --reload
+    networks:
+      - microservices
 
 volumes:
   permissions-database:
