@@ -4,8 +4,8 @@ help: ## Available commands
 	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/:.*##\s*/##/g' | awk -F'##' '{ printf "%-14s %s\n", $$1, $$2 }'
 
 protos-generate: ## Generate protos
-	python3 -m grpc_tools.protoc -I ./protos --python_out=./insights/app --grpc_python_out=./insights/app ./protos/permission.proto
-	python3 -m grpc_tools.protoc -I ./protos --python_out=./permissions/app --grpc_python_out=./permissions/app ./protos/permission.proto
+	python3 -m grpc_tools.protoc -I ./protos --python_out=./insights-service/app --grpc_python_out=./insights-service/app ./protos/permission.proto
+	python3 -m grpc_tools.protoc -I ./protos --python_out=./permissions-service/app --grpc_python_out=./permissions-service/app ./protos/permission.proto
 
 docker-build: ## Docker build in detached mode
 	@docker compose up --build -d

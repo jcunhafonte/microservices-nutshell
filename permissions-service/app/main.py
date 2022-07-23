@@ -42,10 +42,10 @@ def serve():
     permission_pb2_grpc.add_PermissionServicer_to_server(PermissionServicer(), server)
     server.add_insecure_port("[::]:50051")
     server.start()
-    print('Server started at localhost:50051')
+    print("Server started at localhost:50051")
     server.wait_for_termination()
 
 
-print('Starting server...')
+print("Starting server...")
 if __name__ == "__main__":
     serve()

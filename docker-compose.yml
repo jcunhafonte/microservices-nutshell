@@ -4,11 +4,11 @@ services:
     container_name: permissions-service
     build:
       context: .
-      dockerfile: permissions/Dockerfile
-    volumes:
-      - ./permissions:/permissions
+      dockerfile: permissions-service/Dockerfile
     ports:
       - 50051:50051
+    volumes:
+      - ./permissions-service:/permissions-service
     env_file:
       - .env
     command: python main.py
@@ -19,30 +19,30 @@ services:
 
   permissions-database:
     container_name: permissions-database
-    networks:
-      - microservices
     image: postgres
     expose:
       - ${POSTGRES_PORT}
     ports:
       - ${POSTGRES_PORT}:${POSTGRES_PORT}
-    command: -p ${POSTGRES_PORT}
     volumes:
       - permissions-database:/var/lib/postgresql/data
-      - ./permissions/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./permissions-service/init.sql:/docker-entrypoint-initdb.d/init.sql
     hostname: ${DATABASE_HOST}
     env_file:
       - .env
+    command: -p ${POSTGRES_PORT}
+    networks:
+      - microservices
 
   insights-service:
     container_name: insights-service
     build:
       context: .
-      dockerfile: insights/Dockerfile
-    volumes:
-      - ./insights:/insights
+      dockerfile: insights-service/Dockerfile
     ports:
       - 8000:8000
+    volumes:
+      - ./insights-service:/insights-service
     command: uvicorn main:app --host 0.0.0.0 --reload
     networks:
       - microservices
