@@ -18,7 +18,7 @@ class PoliciesController:
     policies_mapper: PoliciesMapper = Depends()
 
     @router.get("/")
-    async def get_policies(self, me: User = Depends(get_authorized_user("policies", "write"))) -> Policies:
+    async def get_policies(self, me: User = Depends(get_authorized_user("admin", "write"))) -> Policies:
         """
         **Get policies**
 
@@ -30,7 +30,7 @@ class PoliciesController:
         return self.policies_mapper.to_policies(policies)
 
     @router.post("/")
-    async def create_policy(self, policy: PolicyRequest, me: User = Depends(get_authorized_user("policies", "write"))) -> Policy:
+    async def create_policy(self, policy: PolicyRequest, me: User = Depends(get_authorized_user("admin", "write"))) -> Policy:
         """
         **Create policy**
 

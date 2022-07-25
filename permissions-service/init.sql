@@ -15,5 +15,4 @@ CREATE TABLE casbin_rule (
 );
 
 -- Fill Policies table
-INSERT INTO casbin_rule(ptype, v0, v1, v2) values('p', '2', 'users', 'read');
 INSERT INTO casbin_rule(ptype, v0, v1, v2) values('p', '2', 'visualizations', 'read');
