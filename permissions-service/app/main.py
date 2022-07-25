@@ -32,7 +32,6 @@ class PermissionServicer(permission_pb2_grpc.PermissionServicer):
 
     @validate_user
     def CheckPolicy(self, request, context):
-        print(request.user_id)
         check_policy = self.policies_service.has_policy(request.user_id, request.object, request.action)
         check_policy = CheckPolicyReply(access=check_policy["access"], message=check_policy["message"])
         return check_policy
