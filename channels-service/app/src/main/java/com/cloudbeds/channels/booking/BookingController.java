@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "${api-prefix}/bookings", produces = MediaType.APPLICATION_JSON_VALUE)
-@Tag(name = "bookings")
+@Tag(name = "Bookings")
 public class BookingController {
     
     private final BookingRepository BookingRepository;
@@ -26,7 +26,7 @@ public class BookingController {
     }
 
     @GetMapping
-    @Operation(summary = "Get all bookings")
+    @Operation(summary = "Get Bookings")
     public ResponseEntity<List<BookingDto>> getAll() {
         var bookings = BookingRepository.getAll();
 
@@ -34,7 +34,7 @@ public class BookingController {
     }
 
     @GetMapping("/{id}")
-    @Operation(summary = "Get booking")
+    @Operation(summary = "Get Booking")
     public ResponseEntity<BookingDto> getById(@PathVariable Integer id) {
         var booking = BookingRepository.getById(id);
 
