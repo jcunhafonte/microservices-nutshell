@@ -47,6 +47,19 @@ services:
     networks:
       - microservices
 
+  channels-service:
+    container_name: channels-service
+    build:
+      context: .
+      dockerfile: channels-service/Dockerfile
+    ports:
+      - 8080:8080
+    volumes:
+      - ./channels-service:/channels-service
+    command: ./mvnw spring-boot:run
+    networks:
+      - microservices
+
 volumes:
   permissions-database:
 networks:
