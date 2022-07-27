@@ -1,0 +1,12 @@
+_format_version: "2.1"
+_transform: true
+
+services:
+- name: insights
+  host: insights-service
+  port: 5000
+  path: "/"
+  # routes:
+  #   - name: default-route
+  #     paths:
+  #       - /insights
