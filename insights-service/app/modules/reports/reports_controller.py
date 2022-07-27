@@ -22,6 +22,8 @@ class ReportsController:
         """
         **Get reports**
 
+        Requires: `reports`
+
         `:return: list of reports`
         """
         reports = self.reports_service.get_reports()
@@ -31,6 +33,8 @@ class ReportsController:
     async def get_report(self, report_id: int, me: User = Depends(get_authorized_user("reports", "read"))) -> Report:
         """
         **Get report**
+
+        Requires: `reports`
 
         `:param report_id: report id`
 

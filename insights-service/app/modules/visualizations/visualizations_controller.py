@@ -22,6 +22,8 @@ class VisualizationsController:
         """
         **Get visualizations**
 
+        Requires: `visualizations`
+
         `:return: list of visualizations`
         """
         visualizations = self.visualizations_service.get_visualizations()
@@ -31,6 +33,8 @@ class VisualizationsController:
     async def get_visualization(self, visualization_id: int, me: User = Depends(get_authorized_user("visualizations", "read"))) -> Visualization:
         """
         **Get visualization**
+
+        Requires: `visualizations`
 
         `:param visualization_id: visualization id`
 
