@@ -17,3 +17,11 @@ services:
     - name: channels
       paths:
         - /channels
+
+- name: authentication
+  host: kubernetes.docker.internal
+  port: 4000
+  routes:
+    - name: authentication
+      paths:
+        - /authentication

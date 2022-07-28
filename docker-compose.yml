@@ -64,6 +64,21 @@ services:
     depends_on:
       - kong
 
+  authentication-service:
+    container_name: authentication-service
+    build:
+      context: .
+      dockerfile: authentication-service/Dockerfile
+    ports:
+      - 4000:8000
+    volumes:
+      - ./authentication-service:/authentication-service
+    command: uvicorn main:app --host 0.0.0.0 --reload
+    networks:
+      - microservices
+    depends_on:
+      - kong
+
   kong:
     container_name: kong
     networks:
