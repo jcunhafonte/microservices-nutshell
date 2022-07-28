@@ -1,0 +1,19 @@
+_format_version: "2.1"
+_transform: true
+
+services:
+- name: insights
+  host: kubernetes.docker.internal
+  port: 5000
+  routes:
+    - name: insights
+      paths:
+        - /insights
+
+- name: channels
+  host: kubernetes.docker.internal
+  port: 8080
+  routes:
+    - name: channels
+      paths:
+        - /channels

@@ -14,6 +14,7 @@ app = FastAPI(
     title="Insights Service",
     description="Insights demo service to fetch permissions from permissions service.",
     version="0.0.1",
+    root_path="/insights"
 )
 
 app.add_middleware(

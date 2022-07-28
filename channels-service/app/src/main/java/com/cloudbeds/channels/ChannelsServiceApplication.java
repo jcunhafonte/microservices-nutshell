@@ -8,6 +8,7 @@ import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
+import org.springframework.web.filter.ForwardedHeaderFilter;
 
 @SpringBootApplication
 public class ChannelsServiceApplication {
@@ -15,6 +16,11 @@ public class ChannelsServiceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ChannelsServiceApplication.class, args);
 	}
+
+	@Bean
+	ForwardedHeaderFilter forwardedHeaderFilter() {
+		return new ForwardedHeaderFilter();
+	} 
 
 	@Bean
 	public OpenAPI customOpenAPI(

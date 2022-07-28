@@ -40,12 +40,14 @@ services:
       context: .
       dockerfile: insights-service/Dockerfile
     ports:
-      - 8000:8000
+      - 5000:8000
     volumes:
       - ./insights-service:/insights-service
     command: uvicorn main:app --host 0.0.0.0 --reload
     networks:
       - microservices
+    depends_on:
+      - kong
 
   channels-service:
     container_name: channels-service
@@ -59,8 +61,34 @@ services:
     command: ./mvnw spring-boot:run
     networks:
       - microservices
+    depends_on:
+      - kong
+
+  kong:
+    container_name: kong
+    networks:
+      - microservices
+    image: kong/kong-gateway:2.8.0.0-alpine
+    ports:
+      - "8000:8000"
+      - "8001:8001"
+      - "8002:8002"
+      - "8443:8443"
+    environment:
+      KONG_DATABASE: "off"
+      KONG_ADMIN_ACCESS_LOG: /dev/stdout
+      KONG_ADMIN_ERROR_LOG: /dev/stderr
+      KONG_PROXY_LISTEN: "0.0.0.0:8000"
+      KONG_ADMIN_LISTEN: "0.0.0.0:8001"
+      KONG_PROXY_ACCESS_LOG: /dev/stdout
+      KONG_PROXY_ERROR_LOG: /dev/stderr
+      KONG_DECLARATIVE_CONFIG: "/opt/kong/declarative/kong.yml"
+      NGINX_UPSTREAM_CONNECT_TIMEOUT: 5000
+    volumes:
+      - ./kong:/opt/kong/declarative/
 
 volumes:
   permissions-database:
 networks:
   microservices:
+    external: false
