@@ -1,38 +1,38 @@
 version: "3.8"
 services:
-  # permissions-service:
-  #   container_name: permissions-service
-  #   build:
-  #     context: .
-  #     dockerfile: permissions-service/Dockerfile
-  #   ports:
-  #     - 50051:50051
-  #   volumes:
-  #     - ./permissions-service:/permissions-service
-  #   env_file:
-  #     - .env
-  #   command: python main.py
-  #   networks:
-  #     - microservices
-  #   depends_on:
-  #     - permissions-database
+  permissions-service:
+    container_name: permissions-service
+    build:
+      context: .
+      dockerfile: permissions-service/Dockerfile
+    ports:
+      - 50051:50051
+    volumes:
+      - ./permissions-service:/permissions-service
+    env_file:
+      - .env
+    command: python main.py
+    networks:
+      - microservices
+    depends_on:
+      - permissions-database
 
-  # permissions-database:
-  #   container_name: permissions-database
-  #   image: postgres
-  #   expose:
-  #     - ${POSTGRES_PORT}
-  #   ports:
-  #     - ${POSTGRES_PORT}:${POSTGRES_PORT}
-  #   volumes:
-  #     - permissions-database:/var/lib/postgresql/data
-  #     - ./permissions-service/init.sql:/docker-entrypoint-initdb.d/init.sql
-  #   hostname: ${DATABASE_HOST}
-  #   env_file:
-  #     - .env
-  #   command: -p ${POSTGRES_PORT}
-  #   networks:
-  #     - microservices
+  permissions-database:
+    container_name: permissions-database
+    image: postgres
+    expose:
+      - ${POSTGRES_PORT}
+    ports:
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
+    volumes:
+      - permissions-database:/var/lib/postgresql/data
+      - ./permissions-service/init.sql:/docker-entrypoint-initdb.d/init.sql
+    hostname: ${DATABASE_HOST}
+    env_file:
+      - .env
+    command: -p ${POSTGRES_PORT}
+    networks:
+      - microservices
 
   insights-service:
     container_name: insights-service
@@ -46,19 +46,23 @@ services:
     command: uvicorn main:app --host 0.0.0.0 --reload
     networks:
       - microservices
+    depends_on:
+      - kong
 
-  # channels-service:
-  #   container_name: channels-service
-  #   build:
-  #     context: .
-  #     dockerfile: channels-service/Dockerfile
-  #   ports:
-  #     - 8080:8080
-  #   volumes:
-  #     - ./channels-service:/channels-service
-  #   command: ./mvnw spring-boot:run
-  #   networks:
-  #     - microservices
+  channels-service:
+    container_name: channels-service
+    build:
+      context: .
+      dockerfile: channels-service/Dockerfile
+    ports:
+      - 8080:8080
+    volumes:
+      - ./channels-service:/channels-service
+    command: ./mvnw spring-boot:run
+    networks:
+      - microservices
+    depends_on:
+      - kong
 
   kong:
     container_name: kong
@@ -79,11 +83,9 @@ services:
       KONG_PROXY_ACCESS_LOG: /dev/stdout
       KONG_PROXY_ERROR_LOG: /dev/stderr
       KONG_DECLARATIVE_CONFIG: "/opt/kong/declarative/kong.yml"
-      NGINX_UPSTREAM_CONNECT_TIMEOUT: 500000
+      NGINX_UPSTREAM_CONNECT_TIMEOUT: 5000
     volumes:
       - ./kong:/opt/kong/declarative/
-    depends_on:
-      - permissions-service
 
 volumes:
   permissions-database:

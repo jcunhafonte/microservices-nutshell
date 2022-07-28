@@ -3,10 +3,17 @@ _transform: true
 
 services:
 - name: insights
-  host: insights-service
+  host: kubernetes.docker.internal
   port: 5000
-  path: "/"
-  # routes:
-  #   - name: default-route
-  #     paths:
-  #       - /insights
+  routes:
+    - name: insights
+      paths:
+        - /insights
+
+- name: channels
+  host: kubernetes.docker.internal
+  port: 8080
+  routes:
+    - name: channels
+      paths:
+        - /channels
