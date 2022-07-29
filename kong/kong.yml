@@ -9,6 +9,11 @@ services:
     - name: insights
       paths:
         - /insights
+  plugins:
+    - name: authentication
+      config:
+        authentication_endpoint: "http://host.docker.internal:8000/authentication/v1.1/token/verify"
+        token_header: "Authorization"
 
 - name: channels
   host: kubernetes.docker.internal
