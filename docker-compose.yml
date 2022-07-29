@@ -91,6 +91,7 @@ services:
       - "8443:8443"
     environment:
       KONG_DATABASE: "off"
+      KONG_PLUGINS: "bundled,authentication"
       KONG_ADMIN_ACCESS_LOG: /dev/stdout
       KONG_ADMIN_ERROR_LOG: /dev/stderr
       KONG_PROXY_LISTEN: "0.0.0.0:8000"
@@ -101,6 +102,7 @@ services:
       NGINX_UPSTREAM_CONNECT_TIMEOUT: 5000
     volumes:
       - ./kong:/opt/kong/declarative/
+      - ./kong/plugins/authentication:/usr/local/share/lua/5.1/kong/plugins/authentication
 
 volumes:
   permissions-database:
