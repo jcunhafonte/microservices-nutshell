@@ -41,7 +41,6 @@ class UsersController:
 
         `:return: user`
         """
-        print(request.headers)
         return self.users_mapper.to_user(me)
 
     @router.get("/me/policies")
