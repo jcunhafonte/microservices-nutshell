@@ -4,7 +4,3 @@ uvicorn>=0.15.0,<0.16.0
 grpcio==1.47.0
 grpcio-tools~=1.30
 git+https://github.com/lqmanh/fastapi-module.git
-casbin==1.16.9
-tortoise-orm==0.19.2
-python-jose
-passlib

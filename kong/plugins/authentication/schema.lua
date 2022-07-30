@@ -8,7 +8,8 @@ return {
         { config = {
             type = "record",
             fields = {
-                { authentication_endpoint = typedefs.url({ required = true }) },
+                { authentication_verify_endpoint = typedefs.url({ required = true }) },
+                { authentication_info_endpoint = typedefs.url({ required = true }) },
                 { token_header = typedefs.header_name { default = "Authorization", required = true }, }
             },
         }, },

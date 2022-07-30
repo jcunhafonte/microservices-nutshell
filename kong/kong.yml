@@ -12,7 +12,8 @@ services:
   plugins:
     - name: authentication
       config:
-        authentication_endpoint: "http://host.docker.internal:8000/authentication/v1.1/token/verify"
+        authentication_verify_endpoint: "http://host.docker.internal:8000/authentication/v1.1/token/verify"
+        authentication_info_endpoint: "http://host.docker.internal:8000/authentication/v1.1/token/info"
         token_header: "Authorization"
 
 - name: channels
