@@ -1,4 +1,5 @@
 local http = require "resty.http"
+local cjson = require("cjson")
 
 local AuthenticationHandler = {
     VERSION = "1.0",
@@ -11,7 +12,7 @@ local function verify_access_token(conf, access_token)
         ["Authorization"] = "Bearer " .. access_token,
     }
 
-    local res, err = httpc:request_uri(conf.authentication_endpoint, {
+    local res, err = httpc:request_uri(conf.authentication_verify_endpoint, {
         method = "GET",
         ssl_verify = false,
         headers = headers,
@@ -22,28 +23,54 @@ local function verify_access_token(conf, access_token)
         return kong.response.exit(500)
     end
     
-    -- if request is unauthorized return error
     if res.status ~= 200 then
         kong.log.err("failed to verify access token: ", res.status)
         return kong.response.exit(401)
     end
 
-    return true -- all is well
+    return true
+end
+
+local function get_access_token_info(conf, access_token)
+    local httpc = http:new()
+    local headers = {
+        ["Authorization"] = "Bearer " .. access_token,
+    }
+
+    local res, err = httpc:request_uri(conf.authentication_info_endpoint, {
+        method = "GET",
+        ssl_verify = false,
+        headers = headers,
+    })
+
+    if not res then
+        kong.log.err("failed to reach authentication endpoint: ", err)
+        return kong.response.exit(500)
+    end
+    
+    if res.status ~= 200 then
+        kong.log.err("failed to verify access token: ", res.status)
+        return kong.response.exit(401)
+    end
+
+    local info = cjson.decode(res.body)
+    return info
 end
 
 function AuthenticationHandler:access(conf)
     local access_token = kong.request.get_headers()[conf.token_header]
 
     if not access_token then
-        kong.log.err("no access token found in request")
-        return kong.response.exit(401)
+        return true
     end
 
-    -- replace Bearer prefix
-    access_token = access_token:sub(8, -1) -- drop "Bearer "
-    verify_access_token(conf, access_token)
+    access_token = access_token:sub(8, -1)
 
-    -- all is well, continue with the request
+    verify_access_token(conf, access_token)
+    
+    local user_id = get_access_token_info(conf, access_token).sub
+    kong.service.request.set_header("x-user-id", user_id)
+
     return true
 end
 

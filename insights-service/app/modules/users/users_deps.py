@@ -1,4 +1,4 @@
-from fastapi import Depends, HTTPException
+from fastapi import Depends, HTTPException, Request
 from fastapi.security import HTTPBearer
 
 
@@ -14,11 +14,13 @@ DESCRIPTION = f"""
 """
 
 async def get_current_user(
+    request: Request,
     users_service: UsersService = Depends(),
     token: str = Depends(HTTPBearer(bearerFormat=BEARER_FORMAT, scheme_name=SCHEME_NAME, description=DESCRIPTION, auto_error=False))
 ) -> UserModel:
     if token is None:
         raise HTTPException(status_code=401, detail="Not authenticated")
-   
-    me = users_service.get_user_by_access_token(token.credentials)
+    
+    user_id = int(request.headers.get('x-user-id'))
+    me = users_service.get_user_by_id(user_id)
     return me

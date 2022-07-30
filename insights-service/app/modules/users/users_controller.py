@@ -1,4 +1,4 @@
-from fastapi import Depends
+from fastapi import Depends, Request
 from fastapi_module import InferringRouter, controller
 
 
@@ -35,7 +35,7 @@ class UsersController:
         return self.users_mapper.to_users(users)
 
     @router.get("/me")
-    async def get_me(self, me: User = Depends(get_current_user)) -> User:
+    async def get_me(self, request: Request, me: User = Depends(get_current_user)) -> User:
         """
         **Get me**
 
