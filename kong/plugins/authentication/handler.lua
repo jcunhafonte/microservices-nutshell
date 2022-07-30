@@ -53,12 +53,6 @@ local function get_access_token_info(conf, access_token)
         return kong.response.exit(401)
     end
 
-    -- res.body is a JSON string with the following structure:
-    -- {
-    --     "sub": "123456789",
-    --     "name": "John Doe",
-    --     "email": "a@a.com"
-    -- }
     local info = cjson.decode(res.body)
     return info
 end
@@ -76,7 +70,6 @@ function AuthenticationHandler:access(conf)
     
     local user_id = get_access_token_info(conf, access_token).sub
     kong.service.request.set_header("x-user-id", user_id)
-    kong.response.set_header("x-user-id", user_id)
 
     return true
 end
