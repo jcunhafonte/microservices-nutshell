@@ -1,10 +1,13 @@
-# GRPC-REST-SERVICE
+# MICROSERVICES-NUTSHELL
 
 ## Overview
 This project aims to showcase how two different services can communicate between each other over GRPC.
 
 - Insights service which is exposed over a REST API.
-- Permissions which is exposed over gRPC.
+- Channels service which is exposed over a REST API.
+- Authentication service which is exposed over a REST API.
+- Permissions service which is exposed over gRPC.
+- Kong API Gateway which communicates with Insights and Channels, validating the Authentication header over Authentication service.
 
 ![Architecture Diagram](/architecture.png "Architecture Diagram")
 
