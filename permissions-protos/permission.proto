@@ -12,8 +12,8 @@ service Permission {
 }
 
 message GetPolicyReply {
-    string object = 1;
-    string action = 2;
+	string object = 1;
+    	string action = 2;
 }
 
 message GetPoliciesReply {
@@ -31,19 +31,19 @@ message GetPoliciesByUserReply {
 message CreatePolicyRequest {
 	int32 user_id = 1;
 	string object = 2;
-    string action = 3;
+    	string action = 3;
 }
 
 message CreatePolicyReply {
 	int32 user_id = 1;
 	string object = 2;
-    string action = 3;
+    	string action = 3;
 }
 
 message CheckPolicyRequest {
 	int32 user_id = 1;
 	string object = 2;
-    string action = 3;
+    	string action = 3;
 }
 
 message CheckPolicyReply {
