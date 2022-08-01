@@ -32,7 +32,7 @@ $ make help
 | Commands          | Description                                                            |
 | ----------------- | ---------------------------------------------------------------------- |
 | help              | Available commands                                                     |
-| protos-generate   | Generate protos                                                          |
+| protos-generate   | Generate protos                                                        |
 | docker-build      | Docker build in detached mode                                          |
 | docker-delete     | Docker delete images, volumes and its dependencies                     |
 | docker-prune      | Docker image prune                                                     |
