@@ -17,7 +17,7 @@ This project aims to showcase how two different services can communicate between
 
 ## Installing
 ```sh
-$ sh make install 
+$ make install 
 ```
 
 ## Running
